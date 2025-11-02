@@ -5,17 +5,17 @@ import org.example.util.Edge;
 import java.util.*;
 
 public class TarjanSCC {
-    private Graph graph;
+    private final Graph graph;
     private int time = 0;
-    private int[] disc;
-    private int[] low;
-    private boolean[] stackMember;
-    private Deque<Integer> stack;
-    private List<List<Integer>> components;
+    private final int[] disc;
+    private final int[] low;
+    private final boolean[] stackMember;
+    private final Deque<Integer> stack;
+    private final List<List<Integer>> components;
 
     public TarjanSCC(Graph graph) {
         this.graph = graph;
-        int n = graph.n + 1; // вершины с 1
+        int n = graph.n;
         disc = new int[n];
         low = new int[n];
         stackMember = new boolean[n];
@@ -27,7 +27,8 @@ public class TarjanSCC {
         Arrays.fill(disc, -1);
         Arrays.fill(low, -1);
 
-        for (int i = 1; i <= graph.n; i++) {
+        // ✅ начинаем с 0, а не с 1
+        for (int i = 0; i < graph.n; i++) {
             if (disc[i] == -1) {
                 dfs(i);
             }
@@ -51,7 +52,7 @@ public class TarjanSCC {
             }
         }
 
-        // если u — корень SCC
+
         if (low[u] == disc[u]) {
             List<Integer> scc = new ArrayList<>();
             while (true) {
