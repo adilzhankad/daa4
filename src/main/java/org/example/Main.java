@@ -4,10 +4,23 @@ import org.example.util.Graph;
 import org.example.util.GraphLoader;
 import org.example.graph.scc.TarjanSCC;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        System.out.println("=== Loading graph from data/tasks.json ===");
+
         Graph graph = GraphLoader.load("data/tasks.json");
-        TarjanSCC scc = new TarjanSCC(graph);
-        scc.run();
+        System.out.println("Graph loaded: " + graph.n + " vertices, " + graph.edges.size() + " edges");
+
+        TarjanSCC tarjan = new TarjanSCC(graph);
+        List<List<Integer>> components = tarjan.run();
+
+        System.out.println("\n=== Strongly Connected Components (SCC) ===");
+        for (int i = 0; i < components.size(); i++) {
+            System.out.println("Component " + (i + 1) + ": " + components.get(i));
+        }
+
+        System.out.println("\n=== Done ===");
     }
 }
