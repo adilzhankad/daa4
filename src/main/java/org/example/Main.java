@@ -4,6 +4,7 @@ import org.example.util.Graph;
 import org.example.util.GraphLoader;
 import org.example.graph.scc.TarjanSCC;
 import org.example.graph.scc.CondensationGraph;
+import org.example.graph.scc.TopologicalSortKahn;
 
 import java.util.List;
 
@@ -26,6 +27,11 @@ public class Main {
 
         CondensationGraph cond = new CondensationGraph(graph, components);
         cond.printCondensedGraph();
+
+
+        System.out.println("\n=== Topological Sort of Condensed Graph ===");
+        List<Integer> order = TopologicalSortKahn.sort(cond.getCondensedGraph());
+        System.out.println(order);
 
         System.out.println("\n=== Done ===");
     }
